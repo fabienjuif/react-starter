@@ -1,0 +1,8 @@
+@import '~styles/colors';
+
+.filter {
+  background-color: $primary;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
