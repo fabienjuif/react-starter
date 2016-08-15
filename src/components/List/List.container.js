@@ -4,7 +4,9 @@ import Component from './List'
 
 const mapStateToProps = ({ list, filter }) => {
   return {
-    list: list.filter(l => `${l.name.first}${l.name.last}`.includes(filter)),
+    items: list
+      .filter(l => `${l.name.first}${l.name.last}`.includes(filter))
+      .map(l => l.id),
   }
 }
 

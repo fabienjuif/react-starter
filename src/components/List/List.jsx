@@ -1,21 +1,18 @@
 import React, { PropTypes } from 'react'
 
-const List = ({ list }) => {
-  return (
-    <ul>
-      {list.map(l => <li key={l.email}>{l.name.first} {l.name.last}</li>)}
-    </ul>
-  )
-}
+import Item from './Item'
+import styles from './List.scss'
+
+const List = ({ className, style, items }) => (
+  <ul className={`${styles.list} ${className}`} style={style}>
+    {items.map(id => <Item key={id} id={id} />)}
+  </ul>
+)
 
 List.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.shape({
-      first: PropTypes.string.isRequired,
-      last: PropTypes.string.isRequired,
-    }).isRequired,
-  })).isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default List
