@@ -1,22 +1,27 @@
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
+import loader from 'hoc-react-loader'
 
 import { getList, getFilter } from 'redux/reducers'
+import { fetchList } from 'redux/actions'
 import Component from './List'
 
 const getFilteredItems = createSelector(
   [getList, getFilter],
   (list, filter) => list
     .filter(l => `${l.name.first}${l.name.last}`.includes(filter))
-    .map(l => l.id)
+    .map(l => l.login.username)
 )
 
-const mapStateToProps = (state) => {
-  return {
-    items: getFilteredItems(state),
-  }
-}
+const mapStateToProps = (state) => ({
+  items: getFilteredItems(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  load: () => dispatch(fetchList()),
+})
 
 export default connect(
-  mapStateToProps
-)(Component)
+  mapStateToProps,
+  mapDispatchToProps,
+)(loader(Component))

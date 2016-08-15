@@ -1,6 +1,9 @@
 {
   "parser": "babel-eslint",
   "extends": ["airbnb"],
+  "globals": {
+    "fetch": false
+  },
   "rules": {
     "semi": [2, "never"],
     "arrow-body-style": 0,
