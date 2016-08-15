@@ -1,12 +1,19 @@
 import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 
+import { getList, getFilter } from 'redux/reducers'
 import Component from './List'
 
-const mapStateToProps = ({ list, filter }) => {
+const getFilteredItems = createSelector(
+  [getList, getFilter],
+  (list, filter) => list
+    .filter(l => `${l.name.first}${l.name.last}`.includes(filter))
+    .map(l => l.id)
+)
+
+const mapStateToProps = (state) => {
   return {
-    items: list
-      .filter(l => `${l.name.first}${l.name.last}`.includes(filter))
-      .map(l => l.id),
+    items: getFilteredItems(state),
   }
 }
 
